@@ -1,0 +1,93 @@
+[
+  {
+    "id": "single-leg-extension",
+    "name": "Single Leg Extension",
+    "primary_muscle": "quads",
+    "secondary_muscles": [],
+    "length_bias": "shortened",
+    "tension_curve": "ascending",
+    "joint_action": "knee_extension",
+    "regional_emphasis": ["rectus_femoris"],
+    "stability_requirement": "low",
+    "stimulus_profile": ["mechanical_tension"],
+    "resistance_type": "machine"
+  },
+  {
+    "id": "hack-squat",
+    "name": "Hack Squat",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes"],
+    "length_bias": "lengthened",
+    "tension_curve": "ascending",
+    "joint_action": "knee_extension",
+    "regional_emphasis": ["vastus_lateralis"],
+    "stability_requirement": "low",
+    "stimulus_profile": ["lengthened_tension", "mechanical_tension"],
+    "resistance_type": "machine"
+  },
+  {
+    "id": "leg-press",
+    "name": "Leg Press",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes"],
+    "length_bias": "midrange",
+    "tension_curve": "ascending",
+    "joint_action": "knee_extension",
+    "regional_emphasis": ["vastus_medialis"],
+    "stability_requirement": "low",
+    "stimulus_profile": ["mechanical_tension"],
+    "resistance_type": "machine"
+  },
+  {
+    "id": "belt-squat-machine",
+    "name": "Machine Belt Squat",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes"],
+    "length_bias": "lengthened",
+    "tension_curve": "ascending",
+    "joint_action": "knee_extension",
+    "regional_emphasis": ["vastus_medialis"],
+    "stability_requirement": "low",
+    "stimulus_profile": ["lengthened_tension", "mechanical_tension"],
+    "resistance_type": "machine"
+  },
+  {
+    "id": "smith-machine-squat",
+    "name": "Smith Machine Squat",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes"],
+    "length_bias": "midrange",
+    "tension_curve": "ascending",
+    "joint_action": "knee_extension",
+    "regional_emphasis": ["vastus_lateralis"],
+    "stability_requirement": "low",
+    "stimulus_profile": ["mechanical_tension"],
+    "resistance_type": "smith_machine"
+  },
+  {
+    "id": "barbell-squat",
+    "name": "Barbell Squat",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes"],
+    "length_bias": "lengthened",
+    "tension_curve": "ascending",
+    "joint_action": "knee_extension",
+    "regional_emphasis": ["vastus_lateralis"],
+    "stability_requirement": "high",
+    "stimulus_profile": ["lengthened_tension", "mechanical_tension"],
+    "resistance_type": "barbell"
+  },
+  {
+    "id": "bulgarian-split-squat",
+    "name": "Bulgarian Split Squat",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes"],
+    "length_bias": "lengthened",
+    "tension_curve": "descending",
+    "joint_action": "knee_extension",
+    "regional_emphasis": ["vastus_medialis"],
+    "stability_requirement": "high",
+    "stimulus_profile": ["lengthened_tension", "mechanical_tension"],
+    "resistance_type": "dumbbell"
+  }
+]
