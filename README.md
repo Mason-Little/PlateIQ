@@ -1,173 +1,159 @@
-# React Gym Tracker
+# OptiSet
 
-A simple gym workout tracking app built with React, TypeScript, and modern tooling. This project is designed as a learning playground for React concepts.
+**Train smarter. Load faster. Progress intentionally.**
 
-## Tech Stack
+OptiSet is a modern, science-based workout tracking app designed for lifters who want to **optimize training decisions**, not just log workouts.  
+Instead of starting from scratch every session, OptiSet tells you **what to do this time** — based on what you did last time, what you haven’t trained recently, and how to minimize friction in the gym.
 
-- **Runtime**: Bun
-- **Build Tool**: Vite
-- **Framework**: React 18 + TypeScript
-- **Routing**: React Router v6
-- **Styling**: Tailwind CSS
-- **State Management**: Zustand
-- **Linting**: ESLint + Prettier
+---
 
-## Getting Started
+## Why OptiSet?
 
-```bash
-# Install dependencies
-bun install
+Most workout trackers answer _“what did I do?”_  
+OptiSet answers _“what should I do next?”_
 
-# Start dev server
-bun dev
+- No empty days — your plan is always waiting
+- No guesswork — progression is guided, not random
+- No wasted time — loading and unloading plates is optimized
+- No vague muscle groups — training is broken down by **muscle heads**
 
-# Build for production
-bun run build
+Built for lifters who care about **progressive overload, volume distribution, and execution quality**.
 
-# Preview production build
-bun preview
+---
 
-# Lint code
-bun run lint
+## Core Concepts
 
-# Fix linting issues
-bun run lint:fix
+### 🧠 Ghosted Guidance (Default Experience)
 
-# Format code
-bun run format
+There is no blank or empty state.
 
-# Type check
-bun run type-check
-```
+When you open OptiSet:
 
-## Project Structure
+- You see **today’s routine**
+- Exercises from the **last time you ran that routine** appear in a ghosted state
+- Previous sets, reps, and weight are visible as guidance
+- You decide whether to match, exceed, or vary the stimulus
 
-```
-src/
-├── components/
-│   ├── Layout.tsx          # Main layout with navigation
-│   ├── WorkoutCard.tsx     # Display individual workout
-│   ├── WorkoutForm.tsx     # Add new workout form
-│   └── ExerciseList.tsx    # List of exercises in workout
-├── pages/
-│   ├── Home.tsx            # Dashboard/workout list
-│   ├── AddWorkout.tsx      # Add workout page
-│   └── WorkoutDetail.tsx   # View single workout details
-├── store/
-│   └── workoutStore.ts     # Zustand store for workouts
-├── types/
-│   └── workout.ts          # TypeScript interfaces
-├── App.tsx                 # Routes setup
-├── main.tsx                # Entry point
-└── index.css               # Tailwind imports
-```
+Your workout feels _prepared_, not improvised.
 
-## Features
+---
 
-- **Home Page** (`/`): View all your workouts in a grid layout
-- **Add Workout** (`/add`): Create new workouts with exercises
-- **Workout Detail** (`/workout/:id`): View and delete individual workouts
+### 🧬 Muscle Head Awareness
 
-## Learning Resources
+OptiSet goes beyond “train biceps” or “train triceps”.
 
-### React Concepts Demonstrated
+It actively tracks and rotates emphasis across **muscle heads**, for example:
 
-1. **React Hooks**:
-   - `useState` - Managing component state
-   - `useEffect` - Side effects (if needed)
-   - Custom hooks with Zustand
+- **Biceps**
+  - Long head
+  - Short head
+- **Triceps**
+  - Long head
+  - Lateral head
+  - Medial head
+- **Shoulders**
+  - Anterior
+  - Lateral
+  - Posterior
 
-2. **Zustand State Management**:
-   - Similar to Pinia from Vue
-   - Simple, centralized state
-   - Actions and selectors
-   - Located in `src/store/workoutStore.ts`
+If you’ve been biasing one head too frequently, OptiSet will suggest exercises that shift stimulus to under-trained heads — helping you train more **completely and intentionally**.
 
-3. **React Router**:
-   - Declarative routing
-   - Route parameters (`/workout/:id`)
-   - Programmatic navigation with `useNavigate`
-   - Nested routes with `<Outlet />`
+---
 
-4. **TypeScript**:
-   - Type-safe props and state
-   - Interfaces for data structures
-   - Type inference
+### 🔁 Intelligent Variation (Without Randomness)
 
-5. **Component Composition**:
-   - Reusable components with props
-   - Children components
-   - Layout pattern
+OptiSet helps you switch things up _when it actually matters_:
 
-6. **Forms in React**:
-   - Controlled components
-   - Form validation
-   - Dynamic form fields
+- Exercise swaps that preserve movement patterns
+- Rep range shifts to manage fatigue
+- Load suggestions based on recent performance
+- Volume balance across weeks
 
-## Key Differences from Vue
+Variation is applied **deliberately**, not for novelty.
 
-### State Management
-**Pinia (Vue)**:
-```js
-const store = defineStore('workout', {
-  state: () => ({ workouts: [] }),
-  actions: { addWorkout() {} }
-})
-```
+---
 
-**Zustand (React)**:
-```ts
-const useWorkoutStore = create((set) => ({
-  workouts: [],
-  addWorkout: (workout) => set((state) => ({ ... }))
-}))
-```
+### 🧑‍🤝‍🧑 Buddy Load System (Shared Rack Optimization)
 
-### Routing
-**Vue Router**:
-```vue
-<router-link to="/add">Add Workout</router-link>
-<router-view />
-```
+Training with a partner shouldn’t mean constantly stripping plates.
 
-**React Router**:
-```tsx
-<Link to="/add">Add Workout</Link>
-<Outlet />
-```
+OptiSet introduces a **Buddy Load System**:
 
-### Reactivity
-- **Vue**: Automatic reactivity with `ref()` and `reactive()`
-- **React**: Explicit updates with `useState()` and immutable state
+- When multiple lifters share a session or lobby
+- The app calculates **optimal plate stacks**
+- Finds shared working weights that minimize on/off movements
+- Reduces downtime and friction at the rack
 
-### Templates vs JSX
-- **Vue**: Template syntax with directives (`v-for`, `v-if`)
-- **React**: JSX with JavaScript expressions (`.map()`, `&&`, ternary)
+Example:
 
-## Sample Data
+> One lifter benches 80 lb, another benches 155 lb  
+> OptiSet computes the most efficient shared plate configuration.
 
-The app comes with 2 sample workouts to help you get started:
-1. Upper Body Strength
-2. Leg Day
+This is especially powerful for:
 
-You can delete these and add your own workouts.
+- Training partners
+- Small group sessions
+- Busy gyms
 
-## Next Steps
+---
 
-Try modifying the app to practice:
-- Add edit workout functionality
-- Add filtering/search
-- Persist data to localStorage
-- Add exercise templates
-- Create workout stats/analytics
-- Add dark mode toggle
+## Training Structure
 
-## Tips for Learning React
+OptiSet supports both **custom plans** and **science-based defaults**, such as:
 
-1. Think in components - Break UI into small, reusable pieces
-2. State flows down, events flow up
-3. Immutability is key - Never mutate state directly
-4. Use TypeScript - Type safety helps catch bugs early
-5. Read the React docs - They're excellent!
+- Upper / Lower / Rest
+- Chest + Biceps
+- Back + Triceps
+- Shoulders + Forearms
+- Legs
 
-Enjoy learning React!
+Each routine adapts over time based on:
+
+- Exercise history
+- Muscle head distribution
+- Recovery patterns
+- Partner constraints (if applicable)
+
+---
+
+## UI & Experience
+
+- Glass-inspired, modern interface
+- Calm, off-grey color system (light & dark mode)
+- Data-forward, minimal typography
+- Gesture-based navigation
+- No clutter, no journaling, no noise
+
+Built for **mobile-first usage**, implemented as a modern web app.
+
+---
+
+## Status
+
+🚧 **Early development / active iteration**
+
+The core ideas, interaction model, and design language are actively being refined.
+
+Planned focus areas:
+
+- Exercise intelligence engine
+- Muscle head tracking
+- Plate optimization algorithms
+- Shared workout lobbies
+- Progressive overload heuristics
+
+---
+
+## Philosophy
+
+OptiSet is built on a simple belief:
+
+> Better decisions compound faster than harder workouts.
+
+If you care about **how** you train — not just that you trained — this app is for you.
+
+---
+
+## License
+
+MIT (subject to change)
