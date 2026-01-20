@@ -1,11 +1,11 @@
-import type { Exercise } from '@store/types';
+import type { Exercise } from '@/types/exercise';
 
 type Props = {
   exercise: Exercise;
   onRemove: () => void;
 };
 
-export default function ExerciseTab({ exercise, onRemove }: Props) {
+export function ExerciseTab({ exercise, onRemove }: Props) {
   return (
     <div className="flex items-center justify-between rounded-lg bg-slate-100 px-4 py-3">
       <div>

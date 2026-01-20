@@ -28,7 +28,7 @@ interface Props {
   onSelect?: (exercise: ExerciseDefinition) => void;
 }
 
-export default function ExerciseSelector({ onClose, onSelect }: Props) {
+export function ExerciseSelector({ onClose, onSelect }: Props) {
   const [selectedCategory, setSelectedCategory] = useState<CategoryKey | null>(
     null
   );

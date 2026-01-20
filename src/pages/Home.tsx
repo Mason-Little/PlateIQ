@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import ExerciseSelector from '@components/ExerciseSelector';
+import { ExerciseSelector } from '@components/ExerciseSelector';
 
 export default function Home() {
   const [showSelector, setShowSelector] = useState(false);
