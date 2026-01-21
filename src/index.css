@@ -1,1 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
+
+@layer base {
+  :root {
+    --bg: 247 246 243;
+    --surface: 255 255 255;
+    --surface-muted: 241 240 236;
+    --text: 31 41 51;
+    --text-muted: 107 114 128;
+    --border: 227 225 220;
+    --accent: 91 124 111;
+    --accent-strong: 78 107 96;
+  }
+
+  * {
+    @apply border-[rgb(var(--border))];
+  }
+
+  body {
+    @apply bg-[rgb(var(--bg))] text-[rgb(var(--text))] antialiased;
+    font-family:
+      'Manrope',
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply tracking-tight;
+  }
+}

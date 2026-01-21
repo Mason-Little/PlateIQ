@@ -19,29 +19,54 @@ export function Home() {
   }, [currentDate, ensureSession]);
 
   return (
-    <main>
-      <h1>{currentDate}</h1>
-      {sessions.map((session) => (
-        <div key={session.sessionOfDay}>
-          {listTrackings(session.id).map((tracking) => (
-            <ExerciseTile key={tracking.id} exerciseTracking={tracking} />
-          ))}
-        </div>
-      ))}
-      <div className="flex gap-4 mt-6">
-        <PlateButton
-          text="Previous Day"
-          onClick={() => setCurrentDate(prevDay(currentDate))}
-        />
-        <PlateButton
-          text="Next Day"
-          onClick={() => setCurrentDate(nextDay(currentDate))}
-        />
+    <main className="min-h-screen px-4 py-10">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
+        <header className="rounded-3xl bg-[rgb(var(--surface))] px-6 py-8 shadow-sm">
+          <p className="text-sm uppercase tracking-[0.2em] text-[rgb(var(--text-muted))]">
+            Training Log
+          </p>
+          <h1 className="mt-2 text-3xl font-semibold md:text-4xl">
+            {currentDate}
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm text-[rgb(var(--text-muted))]">
+            Keep a clean record of today&apos;s lifting sessions and build
+            momentum over time.
+          </p>
+        </header>
 
-        <PlateButton
-          text="Add Exercise"
-          onClick={() => setShowSelectExercises(true)}
-        />
+        <section className="flex flex-wrap gap-3">
+          <PlateButton
+            text="Previous Day"
+            variant="ghost"
+            onClick={() => setCurrentDate(prevDay(currentDate))}
+          />
+          <PlateButton
+            text="Next Day"
+            variant="ghost"
+            onClick={() => setCurrentDate(nextDay(currentDate))}
+          />
+          <PlateButton
+            text="Add Exercise"
+            variant="primary"
+            onClick={() => setShowSelectExercises(true)}
+          />
+        </section>
+
+        <section className="grid gap-6">
+          {sessions.map((session) => (
+            <div key={session.sessionOfDay} className="grid gap-4">
+              {listTrackings(session.id).length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-[rgb(var(--border))] bg-[rgb(var(--surface-muted))] px-6 py-10 text-sm text-[rgb(var(--text-muted))]">
+                  No exercises yet. Add your first movement to start tracking.
+                </div>
+              ) : (
+                listTrackings(session.id).map((tracking) => (
+                  <ExerciseTile key={tracking.id} exerciseTracking={tracking} />
+                ))
+              )}
+            </div>
+          ))}
+        </section>
       </div>
 
       {showSelectExercises && (
