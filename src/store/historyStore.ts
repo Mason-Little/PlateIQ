@@ -1,10 +1,5 @@
 import { create } from 'zustand';
-import type {
-  Session,
-  DateKey,
-  ExerciseTracking,
-  ExerciseSet,
-} from '@/types/history';
+import type { Session, DateKey, ExerciseTracking, ExerciseSet } from '@/types';
 import { dateToKey } from '@/utils/day';
 
 interface HistoryState {

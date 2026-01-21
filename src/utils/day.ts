@@ -1,4 +1,4 @@
-import { DateKey } from "@/types/history";
+import { DateKey } from '@/types';
 
 export const dateToKey = (date: Date): DateKey => {
   return date.toISOString().split('T')[0] as DateKey;
