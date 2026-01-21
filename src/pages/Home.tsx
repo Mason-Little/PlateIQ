@@ -4,11 +4,14 @@ import { dateToKey, nextDay, prevDay } from '@/utils/day';
 import { PlateButton } from '@/components/ui/PlateButton';
 import { SelectExercises } from '@/components/SelectExercises';
 import { ExerciseTile } from '@/components/ExercisesTile';
+import { WorkOutSplit } from '@/components/WorkOutSplit';
+import { PlateModal } from '@/components/ui/PlateModal';
 
 export function Home() {
   const { ensureSession, getSessionsByDate, listTrackings, createTracking } =
     useSessionStore();
 
+  const [showWorkOutSplit, setShowWorkOutSplit] = useState(false);
   const [showSelectExercises, setShowSelectExercises] = useState(false);
 
   const [currentDate, setCurrentDate] = useState(dateToKey(new Date()));
@@ -32,6 +35,7 @@ export function Home() {
             Keep a clean record of today&apos;s lifting sessions and build
             momentum over time.
           </p>
+          <button onClick={() => {setShowWorkOutSplit(true)}}>Select Split</button>
         </header>
 
         <section className="flex flex-wrap gap-3">
@@ -76,6 +80,15 @@ export function Home() {
             setShowSelectExercises(false);
           }}
         />
+      )}
+
+      {showWorkOutSplit && (
+      <PlateModal isOpen={showWorkOutSplit} onClose={() => setShowWorkOutSplit(false)}>
+          <WorkOutSplit onSelectSplit={(split) => {
+            console.log(split);
+            setShowWorkOutSplit(false);
+          }} />
+        </PlateModal>
       )}
     </main>
   );
