@@ -27,7 +27,7 @@ interface HistoryState {
   getSessionsByDate: (date: DateKey) => Session[];
 }
 
-export const useHistoryStore = create<HistoryState>((set, get) => ({
+export const useSessionStore = create<HistoryState>((set, get) => ({
   sessions: {},
   trackings: {},
   currentDate: dateToKey(new Date()),

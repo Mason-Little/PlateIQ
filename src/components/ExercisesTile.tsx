@@ -1,7 +1,7 @@
 import type { ExerciseTracking } from '@/types';
 import { SetPill } from './SetPill';
 import { PlateButton } from './ui/PlateButton';
-import { useHistoryStore } from '@/store/historyStore';
+import { useSessionStore } from '@/store/sessionStore';
 import { useState } from 'react';
 import { PlateModal } from '@/components/ui/PlateModal';
 import { AddSetForm } from '@/components/AddSetForm';
@@ -11,7 +11,7 @@ interface ExerciseTileProps {
 }
 
 export function ExerciseTile({ exerciseTracking }: ExerciseTileProps) {
-  const { addSet } = useHistoryStore();
+  const { addSet } = useSessionStore();
   const [showAddSet, setShowAddSet] = useState(false);
 
   return (

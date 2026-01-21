@@ -1,4 +1,4 @@
-import { useHistoryStore } from '@/store/historyStore';
+import { useSessionStore } from '@/store/sessionStore';
 import { useState, useEffect } from 'react';
 import { dateToKey, nextDay, prevDay } from '@/utils/day';
 import { PlateButton } from '@/components/ui/PlateButton';
@@ -7,7 +7,7 @@ import { ExerciseTile } from '@/components/ExercisesTile';
 
 export function Home() {
   const { ensureSession, getSessionsByDate, listTrackings, createTracking } =
-    useHistoryStore();
+    useSessionStore();
 
   const [showSelectExercises, setShowSelectExercises] = useState(false);
 
