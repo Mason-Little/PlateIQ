@@ -1,0 +1,46 @@
+components:
+- Home {tracking}
+- DateSelector (this is a date selector)
+  - ExerciseList {tracking}
+  - ExerciseCard {tracking}
+  - exerciseSetPill {tracking}
+- addButton {adding}
+- primaryMuscleFilter {adding}
+- PrimaryMuscleCard {adding}
+- exerciseSelector {adding}
+
+types:
+
+history: {
+  sessions: session[],
+}
+
+session: {
+  id: string,
+  date: Date,
+  sessionOfDay: number // what session of the day this is
+  exercises: exerciseTracking<Exercise>[],
+}
+
+exerciseTracking<T>: {
+  exercise: T,
+  sets: set[],
+}
+
+set: {
+  weight: number,
+  reps: number,
+  rpe: number,
+}
+
+exercises: {
+  slug: string,
+  name: string,
+  primaryMuscle: string,
+  secondaryMuscles: string[],
+  unilateral: boolean,
+  lengthBias: string,
+  regionalEmphasis: string[],
+  stabilityRequirement: string,
+  repRange: { min: number, max: number },
+}
