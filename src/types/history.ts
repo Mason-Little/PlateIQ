@@ -1,8 +1,3 @@
-
-export type history = {
-  sessions: Session[],
-}
-
 export type DateKey = `${number}-${number}-${number}`;
 
 export type Session = {
@@ -13,22 +8,21 @@ export type Session = {
 }
 
 export type ExerciseTracking = {
+  sessionId: string,
   id: string,
-  exerciseId: string,
-  sets: Set[],
+  exerciseSlug: string,
+  sets: ExerciseSet[],
 }
 
 export type TimestampMs = number;
 
-export type Set = {
+export type ExerciseSet = {
   weight: number,
   reps: number,
-  rpe: number,
   addedAt: TimestampMs,
 }
 
 export type Exercise = {
-  id: string,
   slug: string,
   name: string,
   primaryMuscle: string,

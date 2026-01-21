@@ -4,26 +4,22 @@ import { dateToKey, nextDay, prevDay } from '@/utils/day';
 import { PlateButton } from '@/components/ui/PlateButton';
 
 export function Home() {
-  const { ensureSession, sessions } = useHistoryStore();
+  const { ensureSession, getSessionsByDate, listTrackings, createTracking } = useHistoryStore();
   const today = dateToKey(new Date());
   const [currentDate, setCurrentDate] = useState(today);
+  const sessions = getSessionsByDate(currentDate);
 
   useEffect(() => {
     ensureSession(currentDate);
   }, [currentDate, ensureSession]);
 
-  const sessionsForCurrentDay = sessions.filter(
-    (session) => session.date === currentDate
-  );
-
   return (
     <main>
       <h1>{currentDate}</h1>
-      {sessionsForCurrentDay.map((session) => (
-        <div key={session.id}>
-          <p>{session.date}</p>
-          <p>{session.sessionOfDay}</p>
-        </div>
+      {sessions.map((session) => (
+        <div key={session.sessionOfDay}>{listTrackings(session.id).map((tracking) => (
+          <div key={tracking.id}>{tracking.exerciseSlug}</div>
+        ))}</div>
       ))}
       <div className="flex gap-4 mt-6">
         <PlateButton
@@ -33,6 +29,11 @@ export function Home() {
         <PlateButton
           text="Next Day"
           onClick={() => setCurrentDate(nextDay(currentDate))}
+        />
+
+        <PlateButton
+          text="Add Exercise"
+          onClick={() => createTracking(sessions[0].id, 'smith-incline-bench-press')}
         />
       </div>
     </main>
