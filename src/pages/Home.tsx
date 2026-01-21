@@ -6,6 +6,7 @@ import { SelectExercises } from '@/components/SelectExercises';
 import { ExerciseTile } from '@/components/ExercisesTile';
 import { WorkOutSplit } from '@/components/WorkOutSplit';
 import { PlateModal } from '@/components/ui/PlateModal';
+import { Header } from '@/components/Header';
 
 export function Home() {
   const { ensureSession, getSessionsByDate, listTrackings, createTracking } =
@@ -23,6 +24,7 @@ export function Home() {
 
   return (
     <main className="min-h-screen px-4 py-10">
+      <Header />
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
         <header className="rounded-3xl bg-[rgb(var(--surface))] px-6 py-8 shadow-sm">
           <p className="text-sm uppercase tracking-[0.2em] text-[rgb(var(--text-muted))]">
@@ -35,7 +37,20 @@ export function Home() {
             Keep a clean record of today&apos;s lifting sessions and build
             momentum over time.
           </p>
-          <button onClick={() => {setShowWorkOutSplit(true)}}>Select Split</button>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => {
+                setShowWorkOutSplit(true);
+              }}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[rgb(var(--accent))] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[rgb(var(--accent-strong))]"
+              type="button"
+            >
+              Select Split
+            </button>
+            <span className="text-xs uppercase tracking-[0.3em] text-[rgb(var(--text-muted))]">
+              Plan your day
+            </span>
+          </div>
         </header>
 
         <section className="flex flex-wrap gap-3">
@@ -83,11 +98,16 @@ export function Home() {
       )}
 
       {showWorkOutSplit && (
-      <PlateModal isOpen={showWorkOutSplit} onClose={() => setShowWorkOutSplit(false)}>
-          <WorkOutSplit onSelectSplit={(split) => {
-            console.log(split);
-            setShowWorkOutSplit(false);
-          }} />
+        <PlateModal
+          isOpen={showWorkOutSplit}
+          onClose={() => setShowWorkOutSplit(false)}
+        >
+          <WorkOutSplit
+            onSelectSplit={(split) => {
+              console.log(split);
+              setShowWorkOutSplit(false);
+            }}
+          />
         </PlateModal>
       )}
     </main>
