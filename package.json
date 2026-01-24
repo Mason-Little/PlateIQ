@@ -1,44 +1,20 @@
 {
-  "name": "react-gym",
+  "name": "plateiq",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "workspaces": [
+    "client",
+    "server",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --ext ts,tsx",
-    "lint:fix": "eslint . --ext ts,tsx --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
-    "type-check": "tsc --noEmit"
+    "dev": "concurrently \"bun --filter client run dev\" \"bun --filter server run start:dev\"",
+    "build": "bun --filter @plateiq/entities run build && bun --filter client run build && bun --filter server run build",
+    "lint": "bun --filter server run lint",
+    "test": "bun --filter server run test",
+    "format": "prettier --write ."
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "@tailwindcss/postcss": "^4.1.18",
-    "@types/node": "^25.0.9",
-    "@types/react": "^19.2.8",
-    "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.53.1",
-    "@typescript-eslint/parser": "^8.53.1",
-    "@vitejs/plugin-react": "^5.1.2",
-    "autoprefixer": "^10.4.23",
-    "eslint": "^9.39.2",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "postcss": "^8.5.6",
-    "prettier": "^3.8.0",
-    "tailwindcss": "^4.1.18",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.53.1",
-    "vite": "^7.2.4"
-  },
-  "dependencies": {
-    "@clerk/clerk-react": "^5.59.4",
-    "framer-motion": "^12.27.1",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "react-router-dom": "^7.12.0",
-    "zustand": "^5.0.10"
+    "concurrently": "^8.2.2",
+    "prettier": "^3.3.3"
   }
 }
