@@ -1,6 +1,6 @@
 import { Exercises } from "@/data/Exercises"
 import { useState } from "react"
-import { ButtonGroup, Button, Dialog, Box } from "@mui/material"
+import { ButtonGroup, Button, Dialog, Box, Typography } from "@mui/material"
 
 interface ExerciseSelectorProps {
     onSelect: (exercise: string) => void
@@ -22,7 +22,7 @@ export const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({onSelect, ope
     return (
       <Dialog open={open} onClose={() => {setOpen(false)}}>
         <Box>
-            <h2>Exercise Selector</h2>
+            <Typography variant="h2">Exercise Selector</Typography>
             {filter ? 
             <ButtonGroup>
               {filteredExercises.map((exercise) => (

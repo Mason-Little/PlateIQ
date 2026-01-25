@@ -1,5 +1,6 @@
-import { addDays, format, isSameDay, subDays } from "date-fns"
+import { addDays, format, subDays } from "date-fns"
 import { useState } from "react"
+import { Typography } from "@mui/material"
 import { Button, ButtonGroup, Box } from "@mui/material"
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
@@ -9,45 +10,39 @@ import useExerciseState from "@/hooks/useExerciseState";
 import { WorkoutCard } from "./WorkoutCard";
 
 export const NoteBook = () => {
+    const { getSessionForDay } = useSessionDay()
+    const { createExerciseEntryForSession, getExerciseEntriesForSession } = useExerciseState()
+
     const [selectedDay, setSelectedDay] = useState(new Date())
-    const formattedDay = format(selectedDay, "EEE, MMM d")
-    const isSelectedDayToday = isSameDay(selectedDay, new Date())
     const [open, setOpen] = useState(false)
-
-    const { getSessionForDay, getWorkoutsForSession } = useSessionDay()
-
-    const { createWorkoutForSession } = useExerciseState()
     
     const session = getSessionForDay(selectedDay)
+    const entries = session ? getExerciseEntriesForSession(session.id) : []
 
-    const workoutIDs = session ? getWorkoutsForSession(session) : []
-
-    const handleAddWorkout = (exerciseSlug: string) => {
-        createWorkoutForSession(session.id, exerciseSlug)
+    const handleAddEntry = (exerciseSlug: string) => {
+        createExerciseEntryForSession(session.id, exerciseSlug)
         setOpen(false)
-        console.log(open)
     }
     
     return (
         <Box>
-            <h1>Notes</h1>
-            <p>{formattedDay}</p>
-            {isSelectedDayToday ? <p>Today</p> : null}
+            <Typography variant="h2">PlateIQ</Typography>
+            <Typography variant="body1">{format(selectedDay, "EEE, MMM d")}</Typography>
             <ButtonGroup>
-                <Button onClick={() => setSelectedDay(new Date())}>Today</Button>
                 <Button onClick={() => setSelectedDay(subDays(selectedDay, 1))}><ArrowLeftIcon /></Button>
+                <Button onClick={() => setSelectedDay(new Date())}>Today</Button>
                 <Button onClick={() => setSelectedDay(addDays(selectedDay, 1))}><ArrowRightIcon /></Button>
             </ButtonGroup>
-            {session ? <p>{session.name}</p> : <p>No session found for {formattedDay}</p>}
 
-            {workoutIDs.map((workout) => (
-                <WorkoutCard key={workout.id} workout={workout} />
+            {entries.map((entry) => (
+                <WorkoutCard key={entry.id} entry={entry} />
             ))}
 
             <Button onClick={() => {setOpen(true)}}>
                 Add Session
             </Button>
-            <ExerciseSelector onSelect={handleAddWorkout} open={open} setOpen={setOpen} />
+
+            <ExerciseSelector onSelect={handleAddEntry} open={open} setOpen={setOpen} />
         </Box>
     )
 }

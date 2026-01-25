@@ -1,16 +1,16 @@
-import type { Workout } from "@/types"
+import type { ExerciseEntry } from "@/types"
 import { Typography, Box } from "@mui/material"
 
 interface Props {
-    workout: Workout
+    entry: ExerciseEntry
 }
 
 export const WorkoutCard: React.FC<Props> = ({
-  workout,
+  entry,
 }) => {
     return (
         <Box>
-            <Typography variant="h3">{workout.exerciseSlug}</Typography>
+            <Typography variant="h3">{entry.exerciseSlug}</Typography>
         </Box>
     )
 }

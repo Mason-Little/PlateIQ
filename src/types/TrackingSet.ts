@@ -2,7 +2,7 @@ import { z } from "zod"
 
 export const TrackingSet = z.object({
     id: z.string(),
-    workoutId: z.string(),
+    exerciseEntryId: z.string(),
     reps: z.number(),
     weight: z.number(),
     time: z.number().optional(),
