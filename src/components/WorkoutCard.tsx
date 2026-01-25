@@ -3,6 +3,7 @@ import { Typography, Box } from "@mui/material";
 import { AddTrackingSet } from "./AddTrackingSet";
 import { useTrackingSetsForEntry } from "@/hooks/useTrackingSets";
 import { useExercises } from "@/hooks/useExercises";
+import { TrackingPill } from "./TrackingPill";
 
 interface Props {
   entry: ExerciseEntry;
@@ -14,14 +15,14 @@ export const WorkoutCard: React.FC<Props> = ({ entry }) => {
   const exercise = exercises.find((item) => item.slug === entry.exerciseSlug);
 
   return (
-    <Box>
-      <Typography variant="h3">{exercise?.name ?? entry.exerciseSlug}</Typography>
-      {sets.map((set, index) => (
-        <Typography key={set.id} variant="body2">
-          Set {index + 1}: {set.reps} reps @ {set.weight}
-        </Typography>
-      ))}
-      <AddTrackingSet entryId={entry.id} />
+    <Box sx={{ border: "1px solid #ccc", padding: "16px", borderRadius: "8px" }}>
+      <Typography variant="h5">{exercise?.name ?? entry.exerciseSlug}</Typography>
+      <Box sx={{ display: "flex", flexDirection: "row", gap: "8px", alignItems: "center" }}>
+        {sets.map((set) => (
+          <TrackingPill key={set.id} set={set}/>
+        ))}
+        <AddTrackingSet entryId={entry.id} />
+      </Box>
     </Box>
   );
 };

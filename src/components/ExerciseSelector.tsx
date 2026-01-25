@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ButtonGroup, Button, Dialog, Box, Typography } from "@mui/material";
+import { Button, Dialog, Box, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import { useExercises } from "@/hooks/useExercises";
 
 interface ExerciseSelectorProps {
@@ -21,8 +21,13 @@ export const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({ onSelect }) 
     return acc;
   }, [] as string[]);
 
-  const handleClose = (exercise: string) => {
+  const handleAddEntry = (exercise: string) => {
     onSelect(exercise);
+    setOpen(false);
+    setFilter("");
+  };
+
+  const handleClose = () => {
     setOpen(false);
     setFilter("");
   };
@@ -31,27 +36,40 @@ export const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({ onSelect }) 
     <>
       <Button onClick={() => setOpen(true)}>Add Exercise</Button>
 
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <Box>
-          <Typography variant="h2">Exercise Selector</Typography>
-          {filter ? (
-            <ButtonGroup>
-              {filteredExercises.map((exercise) => (
-                <Button onClick={() => handleClose(exercise.slug)} key={exercise.slug}>
-                  {exercise.name}
-                </Button>
-              ))}
-            </ButtonGroup>
-          ) : (
-            <ButtonGroup variant="outlined">
-              {muscleGroups.map((muscleGroup) => (
-                <Button onClick={() => setFilter(muscleGroup)} key={muscleGroup}>
-                  {muscleGroup}
-                </Button>
-              ))}
-            </ButtonGroup>
+      <Dialog open={open} onClose={() => handleClose()}>
+        <DialogTitle>Exercise Selector</DialogTitle>
+        <Box sx={{ display: "flex", justifyContent: "flex-end", marginBottom: 2 }}>
+          {filter && (
+            <Button onClick={() => setFilter("")}>Clear Filter</Button>
           )}
         </Box>
+        <DialogContent>
+        {filter ? (
+          <Box sx={{ flexDirection: "column", gap: 2, display: "flex", flexWrap: "wrap" }}>
+            {filteredExercises.map((exercise) => (
+              <Button fullWidth variant="outlined" onClick={() => handleAddEntry(exercise.slug)} key={exercise.slug}>
+                {exercise.name}
+              </Button>
+            ))}
+          </Box>
+        ) : (
+          <Box sx={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 2 }}>
+            {muscleGroups.map((muscleGroup) => (
+              <Button
+                variant="outlined"
+                onClick={() => setFilter(muscleGroup)}
+                key={muscleGroup}
+                fullWidth
+              >
+                {muscleGroup}
+              </Button>
+            ))}
+          </Box>
+        )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleClose()}>Cancel</Button>
+        </DialogActions>
       </Dialog>
     </>
   );

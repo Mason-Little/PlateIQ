@@ -13,7 +13,7 @@ export const NoteBook = () => {
   const [selectedDay, setSelectedDay] = useState(new Date());
   const sessionDate = format(selectedDay, "yyyy-MM-dd");
 
-  const { data: session, isLoading } = useSessionByDate(sessionDate) ;
+  const { data: session } = useSessionByDate(sessionDate) ;
   const { data: entries = [] } = useExerciseEntriesForSession(session?.id ?? "");
   const createExerciseEntry = useCreateExerciseEntry();
 
@@ -31,7 +31,7 @@ export const NoteBook = () => {
     <Box>
       <Typography variant="h2">PlateIQ</Typography>
       <Typography variant="body1">{format(selectedDay, "EEE, MMM d")}</Typography>
-      <ButtonGroup>
+      <ButtonGroup sx={{ display: "flex", justifyContent: "flex-end", marginTop: "8px" }}>
         <Button onClick={() => setSelectedDay(subDays(selectedDay, 1))}>
           <ArrowLeftIcon />
         </Button>
@@ -40,16 +40,14 @@ export const NoteBook = () => {
           <ArrowRightIcon />
         </Button>
       </ButtonGroup>
-
-      {isLoading ? (
-        <Typography variant="body1">Loading session...</Typography>
-      ) : (
-        entries.map((entry) => (
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "8px" }}>
+        {entries.map((entry) => (
           <WorkoutCard key={entry.id} entry={entry} />
-        ))
-      )}
-
-      <ExerciseSelector onSelect={handleAddEntry} />
+        ))}
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: "8px" }}>
+        <ExerciseSelector onSelect={handleAddEntry} />
+      </Box>
     </Box>
   );
 };
