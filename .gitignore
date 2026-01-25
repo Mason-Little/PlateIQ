@@ -1,32 +1,24 @@
-# OS generated files
-.DS_Store
-Thumbs.db
-*.swp
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Environment variables
-.env
-.env.*
-!.env.example
+node_modules
+dist
+dist-ssr
+*.local
 
-# IDE files
-/.idea
+# Editor directories and files
 .vscode/*
-!.vscode/settings.json
-!.vscode/launch.json
-
-# Build outputs and dependencies
-/dist
-/node_modules
-/coverage
-/build
-/.next
-
-# All projects
-**/node_modules
-**/dist
-**/.env
-**/*.log
-**/coverage
-
-/test/ctrf
-/test/junit
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
