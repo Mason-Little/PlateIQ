@@ -14,14 +14,12 @@ export const NoteBook = () => {
     const { createExerciseEntryForSession, getExerciseEntriesForSession } = useExerciseState()
 
     const [selectedDay, setSelectedDay] = useState(new Date())
-    const [open, setOpen] = useState(false)
     
     const session = getSessionForDay(selectedDay)
     const entries = session ? getExerciseEntriesForSession(session.id) : []
 
     const handleAddEntry = (exerciseSlug: string) => {
         createExerciseEntryForSession(session.id, exerciseSlug)
-        setOpen(false)
     }
     
     return (
@@ -38,11 +36,7 @@ export const NoteBook = () => {
                 <WorkoutCard key={entry.id} entry={entry} />
             ))}
 
-            <Button onClick={() => {setOpen(true)}}>
-                Add Session
-            </Button>
-
-            <ExerciseSelector onSelect={handleAddEntry} open={open} setOpen={setOpen} />
+            <ExerciseSelector onSelect={handleAddEntry} />
         </Box>
     )
 }
