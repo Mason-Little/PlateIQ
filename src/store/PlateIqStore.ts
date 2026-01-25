@@ -10,6 +10,7 @@ interface PlateIqStore {
     getSessionByDate: (sessionDate: string) => Session | null;
     addSession: (session: Session) => void;
     addWorkoutToSession: (sessionId: string, workout: Workout) => void;
+    createWorkoutForSession: (sessionId: string, exerciseId: string) => string | null;
     removeWorkoutFromSession: (sessionId: string, workoutId: string) => void;
     addSetToWorkout: (workoutId: string, set: TrackingSet) => void;
     removeSetFromWorkout: (workoutId: string, setId: string) => void;
@@ -66,6 +67,36 @@ export const usePlateIqStore = create<PlateIqStore>()(
                         },
                     };
                 }),
+            createWorkoutForSession: (sessionId: string, exerciseSlug: string) => {
+                const workoutId = crypto.randomUUID();
+                const workout: Workout = {
+                    id: workoutId,
+                    exerciseSlug,
+                    setIds: [],
+                };
+                let created = false;
+                set((state) => {
+                    const session = state.sessionsById[sessionId];
+                    if (!session) {
+                        return state;
+                    }
+                    created = true;
+                    return {
+                        sessionsById: {
+                            ...state.sessionsById,
+                            [sessionId]: {
+                                ...session,
+                                workoutIds: [...session.workoutIds, workoutId],
+                            },
+                        },
+                        workoutsById: {
+                            ...state.workoutsById,
+                            [workoutId]: workout,
+                        },
+                    };
+                });
+                return created ? workoutId : null;
+            },
             removeWorkoutFromSession: (sessionId: string, workoutId: string) =>
                 set((state) => {
                     const session = state.sessionsById[sessionId];

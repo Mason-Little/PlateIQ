@@ -1,6 +1,6 @@
 import type { Exercise } from "@/types";
 
-export const Exercises: Partial<Exercise>[] = [
+export const Exercises: Exercise[] = [
   {
     "slug": "machine-chest-fly",
     "name": "Machine Chest Fly",

@@ -2,7 +2,7 @@ import { z } from "zod"
 
 const Workout = z.object({
     id: z.string(),
-    exerciseId: z.string(),
+    exerciseSlug: z.string(),
     setIds: z.array(z.string()),
 })
 

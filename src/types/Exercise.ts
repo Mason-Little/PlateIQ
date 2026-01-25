@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 const Exercise = z.object({
-    id: z.string(),
     slug: z.string(),
     name: z.string(),
     primaryMuscle: z.string(),

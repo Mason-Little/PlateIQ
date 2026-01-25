@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { usePlateIqStore } from "@/store/PlateIqStore";
-import type { Session } from "@/types";
+import type { Session, Workout } from "@/types";
 
 export const useSessionDay = () => {
   const getSessionForDay = (day: Date) => {
@@ -23,7 +23,17 @@ export const useSessionDay = () => {
     return session;
   };
 
+  const getWorkoutsForSession = (session: Session) => {
+    if (!session) {
+      return [];
+    }
+    return session.workoutIds
+      .map((workoutId) => usePlateIqStore.getState().workoutsById[workoutId])
+      .filter((workout): workout is Workout => Boolean(workout));
+  };
+
   return {
     getSessionForDay,
+    getWorkoutsForSession,
   };
 };

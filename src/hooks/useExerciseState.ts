@@ -28,6 +28,10 @@ const useExerciseState = () => {
     usePlateIqStore.getState().addWorkoutToSession(sessionId, workout);
   };
 
+  const createWorkoutForSession = (sessionId: string, exerciseId: string) => {
+    return usePlateIqStore.getState().createWorkoutForSession(sessionId, exerciseId);
+  };
+
   const removeWorkoutFromSession = (sessionId: string, workoutId: string) => {
     usePlateIqStore.getState().removeWorkoutFromSession(sessionId, workoutId);
   };
@@ -48,6 +52,7 @@ const useExerciseState = () => {
     getWorkoutsForSession,
     getSetsForWorkout,
     addWorkoutToSession,
+    createWorkoutForSession,
     removeWorkoutFromSession,
     addSetToWorkout,
     removeSetFromWorkout,
