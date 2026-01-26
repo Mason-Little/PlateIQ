@@ -8,47 +8,87 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface AddTrackingSetProps {
   entryId: string;
+  trackingSetId?: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
-export const AddTrackingSet: React.FC<AddTrackingSetProps> = ({ entryId }) => {
-  const [open, setOpen] = useState(false);
-  const [reps, setReps] = useState<number | null>(null);
-  const [weight, setWeight] = useState<number | null>(null);
-  const { createSet } = useTrackingSetData(entryId);
+export const AddTrackingSet: React.FC<AddTrackingSetProps> = ({
+  entryId,
+  trackingSetId,
+  open,
+  setOpen,
+}) => {
+  const { createSet, updateSet, getTrackingSet, deleteSet } =
+    useTrackingSetData(entryId);
+  const set = trackingSetId ? getTrackingSet(trackingSetId) : null;
+
+  const [reps, setReps] = useState<number | null>(set?.reps ?? null);
+  const [weight, setWeight] = useState<number | null>(set?.weight ?? null);
+
+  useEffect(() => {
+    if (open) {
+      setReps(set?.reps ?? null);
+      setWeight(set?.weight ?? null);
+    }
+  }, [open, set?.reps, set?.weight]);
 
   const handleAddSet = () => {
     if (reps === null || weight === null) {
       return;
     }
 
-    createSet({
-      exerciseEntryId: entryId,
-      reps,
-      weight,
-    });
+    if (trackingSetId) {
+      updateSet({
+        setId: trackingSetId,
+        exerciseEntryId: entryId,
+        updates: {
+          reps,
+          weight,
+        },
+      });
+    } else {
+      createSet({
+        exerciseEntryId: entryId,
+        reps,
+        weight,
+      });
+    }
     setReps(null);
     setWeight(null);
     setOpen(false);
   };
 
   const onClose = () => {
+    if (trackingSetId) {
+      setReps(set?.reps ?? null);
+      setWeight(set?.weight ?? null);
+    } else {
+      setReps(null);
+      setWeight(null);
+    }
     setOpen(false);
-    setReps(null);
-    setWeight(null);
+  };
+
+  const handleDeleteSet = () => {
+    if (!trackingSetId) {
+      return;
+    }
+    deleteSet({
+      setId: trackingSetId,
+      exerciseEntryId: entryId,
+    });
+    setOpen(false);
   };
 
   return (
     <Box>
-      <Button variant="contained" onClick={() => setOpen(true)}>
-        Add Set
-      </Button>
-
       <Dialog open={open} onClose={onClose}>
-        <DialogTitle>Add Set</DialogTitle>
+        <DialogTitle>{trackingSetId ? "Update Set" : "Add Set"}</DialogTitle>
         <DialogContent
           sx={{
             display: "flex",
@@ -95,6 +135,11 @@ export const AddTrackingSet: React.FC<AddTrackingSetProps> = ({ entryId }) => {
           <Button variant="contained" onClick={handleAddSet}>
             Add Set
           </Button>
+          {trackingSetId && (
+            <Button variant="contained" onClick={handleDeleteSet}>
+              Delete Set
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </Box>

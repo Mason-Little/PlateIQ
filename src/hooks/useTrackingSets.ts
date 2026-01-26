@@ -70,6 +70,10 @@ export const useTrackingSetData = (exerciseEntryId: string | null) => {
     },
   });
 
+  const getTrackingSet = (setId: string) => {
+    return sets?.find((set) => set.id === setId);
+  };
+
   return {
     sets,
     isLoading,
@@ -83,5 +87,6 @@ export const useTrackingSetData = (exerciseEntryId: string | null) => {
     deleteSet: deleteMutation.mutate,
     deleteSetAsync: deleteMutation.mutateAsync,
     isDeleting: deleteMutation.isPending,
+    getTrackingSet,
   };
 };

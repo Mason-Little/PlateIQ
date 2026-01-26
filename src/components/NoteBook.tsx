@@ -6,8 +6,8 @@ import { Typography } from "@mui/material";
 import { Box, Button, ButtonGroup } from "@mui/material";
 import { addDays, format, subDays } from "date-fns";
 import { useState } from "react";
+import { WorkoutCard } from "./EntryCard";
 import { ExerciseSelector } from "./ExerciseSelector";
-import { WorkoutCard } from "./WorkoutCard";
 
 export const NoteBook = () => {
   const [selectedDay, setSelectedDay] = useState(new Date());

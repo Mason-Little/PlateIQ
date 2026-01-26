@@ -1,7 +1,8 @@
 import { useExerciseData } from "@/hooks/useExercises";
 import { useTrackingSetData } from "@/hooks/useTrackingSets";
 import type { ExerciseEntry } from "@/types";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import { useState } from "react";
 import { AddTrackingSet } from "./AddTrackingSet";
 import { TrackingPill } from "./TrackingPill";
 
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export const WorkoutCard: React.FC<Props> = ({ entry }) => {
+  const [open, setOpen] = useState(false);
+
   const { sets = [] } = useTrackingSetData(entry.id);
   const { exercises } = useExerciseData();
   const exercise = exercises.find((item) => item.slug === entry.exerciseSlug);
@@ -32,8 +35,11 @@ export const WorkoutCard: React.FC<Props> = ({ entry }) => {
         {sets.map((set) => (
           <TrackingPill key={set.id} set={set} />
         ))}
-        <AddTrackingSet entryId={entry.id} />
+        <Button variant="contained" onClick={() => setOpen(true)}>
+          Add Set
+        </Button>
       </Box>
+      <AddTrackingSet entryId={entry.id} open={open} setOpen={setOpen} />
     </Box>
   );
 };
