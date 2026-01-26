@@ -8,13 +8,14 @@ import { addDays, format, subDays } from "date-fns";
 import { useState } from "react";
 import { WorkoutCard } from "./EntryCard";
 import { ExerciseSelector } from "./ExerciseSelector";
-import { SplitDropdown } from "./SplitDropdown";
+import { SplitStatus } from "./SplitStatus";
 
 export const NoteBook = () => {
   const [selectedDay, setSelectedDay] = useState(new Date());
   const sessionDate = format(selectedDay, "yyyy-MM-dd");
 
   const { sessionByDate } = useSessionData(sessionDate);
+
   const { entries = [], createEntryAsync } = useExerciseEntryData(
     sessionByDate?.id ?? "",
   );
@@ -42,7 +43,7 @@ export const NoteBook = () => {
           marginTop: "8px",
         }}
       >
-        <SplitDropdown />
+        <SplitStatus selectedDate={selectedDay} />
         <ButtonGroup sx={{}}>
           <Button onClick={() => setSelectedDay(subDays(selectedDay, 1))}>
             <ArrowLeftIcon />
