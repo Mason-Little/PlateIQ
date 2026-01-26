@@ -8,6 +8,7 @@ import { addDays, format, subDays } from "date-fns";
 import { useState } from "react";
 import { WorkoutCard } from "./EntryCard";
 import { ExerciseSelector } from "./ExerciseSelector";
+import { SplitDropdown } from "./SplitDropdown";
 
 export const NoteBook = () => {
   const [selectedDay, setSelectedDay] = useState(new Date());
@@ -34,17 +35,24 @@ export const NoteBook = () => {
       <Typography variant="body1">
         {format(selectedDay, "EEE, MMM d")}
       </Typography>
-      <ButtonGroup
-        sx={{ display: "flex", justifyContent: "flex-end", marginTop: "8px" }}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "8px",
+        }}
       >
-        <Button onClick={() => setSelectedDay(subDays(selectedDay, 1))}>
-          <ArrowLeftIcon />
-        </Button>
-        <Button onClick={() => setSelectedDay(new Date())}>Today</Button>
-        <Button onClick={() => setSelectedDay(addDays(selectedDay, 1))}>
-          <ArrowRightIcon />
-        </Button>
-      </ButtonGroup>
+        <SplitDropdown />
+        <ButtonGroup sx={{}}>
+          <Button onClick={() => setSelectedDay(subDays(selectedDay, 1))}>
+            <ArrowLeftIcon />
+          </Button>
+          <Button onClick={() => setSelectedDay(new Date())}>Today</Button>
+          <Button onClick={() => setSelectedDay(addDays(selectedDay, 1))}>
+            <ArrowRightIcon />
+          </Button>
+        </ButtonGroup>
+      </Box>
       <Box
         sx={{
           display: "flex",

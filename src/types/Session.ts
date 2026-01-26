@@ -5,6 +5,7 @@ const Session = z.object({
   userId: z.string(),
   name: z.string(),
   sessionDate: z.string(),
+  splitDayId: z.string().optional(),
   createdAt: z.string(),
 });
 
