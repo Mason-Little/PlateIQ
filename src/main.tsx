@@ -6,13 +6,13 @@ import App from "./App.tsx";
 
 const root = document.getElementById("root");
 if (!root) {
-	throw new Error("Failed to find root element");
+  throw new Error("Failed to find root element");
 }
 
 createRoot(root).render(
-	<StrictMode>
-		<QueryClientProvider client={queryClient}>
-			<App />
-		</QueryClientProvider>
-	</StrictMode>,
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </StrictMode>,
 );
