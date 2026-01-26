@@ -1,4 +1,4 @@
-import { useExercises } from "@/hooks/useExercises";
+import { useExerciseData } from "@/hooks/useExercises";
 import {
   Box,
   Button,
@@ -16,7 +16,7 @@ interface ExerciseSelectorProps {
 export const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({
   onSelect,
 }) => {
-  const { exercises } = useExercises();
+  const { exercises } = useExerciseData();
   const [filter, setFilter] = useState("");
   const [open, setOpen] = useState(false);
   const filteredExercises = exercises.filter((exercise) =>

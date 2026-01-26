@@ -1,5 +1,5 @@
-import { useExercises } from "@/hooks/useExercises";
-import { useTrackingSetsForEntry } from "@/hooks/useTrackingSets";
+import { useExerciseData } from "@/hooks/useExercises";
+import { useTrackingSetData } from "@/hooks/useTrackingSets";
 import type { ExerciseEntry } from "@/types";
 import { Box, Typography } from "@mui/material";
 import { AddTrackingSet } from "./AddTrackingSet";
@@ -10,8 +10,8 @@ interface Props {
 }
 
 export const WorkoutCard: React.FC<Props> = ({ entry }) => {
-  const { data: sets = [] } = useTrackingSetsForEntry(entry.id);
-  const { exercises } = useExercises();
+  const { sets = [] } = useTrackingSetData(entry.id);
+  const { exercises } = useExerciseData();
   const exercise = exercises.find((item) => item.slug === entry.exerciseSlug);
 
   return (

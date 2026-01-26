@@ -1,5 +1,5 @@
 import { Exercises } from "@/data/Exercises";
 
-export const useExercises = () => ({
+export const useExerciseData = () => ({
   exercises: Exercises,
 });

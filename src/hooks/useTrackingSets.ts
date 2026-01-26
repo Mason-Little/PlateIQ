@@ -6,8 +6,14 @@ import {
 } from "@/api/trackingSets";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useTrackingSetsForEntry = (exerciseEntryId: string | null) =>
-  useQuery({
+export const useTrackingSetData = (exerciseEntryId: string | null) => {
+  const queryClient = useQueryClient();
+
+  const {
+    data: sets,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["trackingSets", exerciseEntryId],
     queryFn: () =>
       exerciseEntryId
@@ -16,11 +22,9 @@ export const useTrackingSetsForEntry = (exerciseEntryId: string | null) =>
     enabled: Boolean(exerciseEntryId),
   });
 
-export const useCreateTrackingSet = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
+  const createMutation = useMutation({
     mutationFn: ({
-      exerciseEntryId,
+      exerciseEntryId: createEntryId,
       reps,
       weight,
       time,
@@ -29,18 +33,15 @@ export const useCreateTrackingSet = () => {
       reps: number;
       weight: number;
       time?: number;
-    }) => createTrackingSet(exerciseEntryId, reps, weight, time),
+    }) => createTrackingSet(createEntryId, reps, weight, time),
     onSuccess: (set) => {
       queryClient.invalidateQueries({
         queryKey: ["trackingSets", set.exerciseEntryId],
       });
     },
   });
-};
 
-export const useUpdateTrackingSet = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
+  const updateMutation = useMutation({
     mutationFn: ({
       setId,
       updates,
@@ -56,11 +57,8 @@ export const useUpdateTrackingSet = () => {
       });
     },
   });
-};
 
-export const useDeleteTrackingSet = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
+  const deleteMutation = useMutation({
     mutationFn: ({
       setId,
       exerciseEntryId: _exerciseEntryId,
@@ -71,4 +69,19 @@ export const useDeleteTrackingSet = () => {
       });
     },
   });
+
+  return {
+    sets,
+    isLoading,
+    isError,
+    createSet: createMutation.mutate,
+    createSetAsync: createMutation.mutateAsync,
+    isCreating: createMutation.isPending,
+    updateSet: updateMutation.mutate,
+    updateSetAsync: updateMutation.mutateAsync,
+    isUpdating: updateMutation.isPending,
+    deleteSet: deleteMutation.mutate,
+    deleteSetAsync: deleteMutation.mutateAsync,
+    isDeleting: deleteMutation.isPending,
+  };
 };

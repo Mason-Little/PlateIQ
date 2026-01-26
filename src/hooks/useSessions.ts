@@ -6,21 +6,28 @@ import {
 } from "@/api/sessions";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useSessions = () =>
-  useQuery({
+export const useSessionData = (sessionDate: string) => {
+  const queryClient = useQueryClient();
+
+  const {
+    data: sessions,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["sessions"],
     queryFn: fetchSessions,
   });
 
-export const useSessionByDate = (sessionDate: string) =>
-  useQuery({
+  const {
+    data: sessionByDate,
+    isLoading: isSessionByDateLoading,
+    isError: isSessionByDateError,
+  } = useQuery({
     queryKey: ["sessions", sessionDate],
     queryFn: () => fetchSessionByDate(sessionDate),
   });
 
-export const useUpdateSession = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
+  const updateMutation = useMutation({
     mutationFn: ({
       sessionId,
       updates,
@@ -31,14 +38,22 @@ export const useUpdateSession = () => {
       queryClient.setQueryData(["sessions", session.sessionDate], session);
     },
   });
-};
 
-export const useDeleteSession = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
+  const deleteMutation = useMutation({
     mutationFn: deleteSession,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sessions"] });
     },
   });
+
+  return {
+    sessions,
+    sessionByDate,
+    isLoading: isLoading || isSessionByDateLoading,
+    isError: isError || isSessionByDateError,
+    updateSession: updateMutation.mutate,
+    isUpdating: updateMutation.isPending,
+    deleteSession: deleteMutation.mutate,
+    isDeleting: deleteMutation.isPending,
+  };
 };

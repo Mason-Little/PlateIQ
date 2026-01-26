@@ -5,32 +5,33 @@ import {
 } from "@/api/exerciseEntries";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useExerciseEntriesForSession = (sessionId: string) =>
-  useQuery({
+export const useExerciseEntryData = (sessionId: string) => {
+  const queryClient = useQueryClient();
+
+  const {
+    data: entries,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["exerciseEntries", sessionId],
     queryFn: () => fetchExerciseEntriesForSession(sessionId),
     enabled: Boolean(sessionId),
   });
 
-export const useCreateExerciseEntry = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
+  const createMutation = useMutation({
     mutationFn: ({
-      sessionId,
+      sessionId: createSessionId,
       exerciseSlug,
     }: { sessionId: string; exerciseSlug: string }) =>
-      createExerciseEntry(sessionId, exerciseSlug),
+      createExerciseEntry(createSessionId, exerciseSlug),
     onSuccess: (entry) => {
       queryClient.invalidateQueries({
         queryKey: ["exerciseEntries", entry.sessionId],
       });
     },
   });
-};
 
-export const useDeleteExerciseEntry = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
+  const deleteMutation = useMutation({
     mutationFn: ({
       entryId,
       sessionId: _sessionId,
@@ -41,4 +42,16 @@ export const useDeleteExerciseEntry = () => {
       });
     },
   });
+
+  return {
+    entries,
+    isLoading,
+    isError,
+    createEntry: createMutation.mutate,
+    createEntryAsync: createMutation.mutateAsync,
+    isCreating: createMutation.isPending,
+    deleteEntry: deleteMutation.mutate,
+    deleteEntryAsync: deleteMutation.mutateAsync,
+    isDeleting: deleteMutation.isPending,
+  };
 };

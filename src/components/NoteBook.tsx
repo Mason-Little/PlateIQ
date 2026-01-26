@@ -1,8 +1,5 @@
-import {
-  useCreateExerciseEntry,
-  useExerciseEntriesForSession,
-} from "@/hooks/useExerciseEntries";
-import { useSessionByDate } from "@/hooks/useSessions";
+import { useExerciseEntryData } from "@/hooks/useExerciseEntries";
+import { useSessionData } from "@/hooks/useSessions";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Typography } from "@mui/material";
@@ -16,18 +13,17 @@ export const NoteBook = () => {
   const [selectedDay, setSelectedDay] = useState(new Date());
   const sessionDate = format(selectedDay, "yyyy-MM-dd");
 
-  const { data: session } = useSessionByDate(sessionDate);
-  const { data: entries = [] } = useExerciseEntriesForSession(
-    session?.id ?? "",
+  const { sessionByDate } = useSessionData(sessionDate);
+  const { entries = [], createEntryAsync } = useExerciseEntryData(
+    sessionByDate?.id ?? "",
   );
-  const createExerciseEntry = useCreateExerciseEntry();
 
   const handleAddEntry = async (exerciseSlug: string) => {
-    if (!session) {
+    if (!sessionByDate) {
       return;
     }
-    await createExerciseEntry.mutateAsync({
-      sessionId: session.id,
+    await createEntryAsync({
+      sessionId: sessionByDate.id,
       exerciseSlug,
     });
   };

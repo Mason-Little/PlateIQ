@@ -1,4 +1,4 @@
-import { useCreateTrackingSet } from "@/hooks/useTrackingSets";
+import { useTrackingSetData } from "@/hooks/useTrackingSets";
 import {
   Box,
   Button,
@@ -18,14 +18,14 @@ export const AddTrackingSet: React.FC<AddTrackingSetProps> = ({ entryId }) => {
   const [open, setOpen] = useState(false);
   const [reps, setReps] = useState<number | null>(null);
   const [weight, setWeight] = useState<number | null>(null);
-  const createTrackingSet = useCreateTrackingSet();
+  const { createSet } = useTrackingSetData(entryId);
 
   const handleAddSet = () => {
     if (reps === null || weight === null) {
       return;
     }
 
-    createTrackingSet.mutate({
+    createSet({
       exerciseEntryId: entryId,
       reps,
       weight,
